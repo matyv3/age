@@ -1,5 +1,5 @@
 package Imperios;
 
-public class Romano {
+public class Romano implements Imperio {
 
 }
