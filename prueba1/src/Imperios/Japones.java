@@ -1,5 +1,8 @@
 package Imperios;
 
-public class Japones implements Imperio{
-	
+public class Japones extends Imperio {
+
+    public Japones() {
+        super("Japones");
+    }
 }

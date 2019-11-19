@@ -1,5 +1,8 @@
 package Imperios;
 
-public class Romano implements Imperio {
+public class Romano extends Imperio {
 
+    public Romano() {
+        super("Romano");
+    }
 }
