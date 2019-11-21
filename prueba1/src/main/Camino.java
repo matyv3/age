@@ -140,7 +140,15 @@ public class Camino {
 
 			} else {
 				for (int i = 0; i <= Math.abs(resX); i++) {
-					arrayCamin = arrayCamin + (xi - i) + "," + (yi - i) + ";";
+					
+					if(i == Math.abs(resX)) {
+						
+						arrayCamin = arrayCamin + ((xi - i)+1) + "," + (yi - i) + ";";
+					}
+					else {
+						arrayCamin = arrayCamin + (xi - i) + "," + (yi - i) + ";";
+					}
+					
 				}
 			}
 		} else if (resX == 0) {
