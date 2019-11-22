@@ -12,16 +12,40 @@ public class main {
 		Scanner sc = new Scanner(System.in);
 		// 1) dar a elegir a cada personaje los imperios que van a usar
 		// maximo 3 jugadores, uno por cada imperio
-		List<Jugador> jugadores = obtenerJugadores();
+		// List<Jugador> jugadores = obtenerJugadores();
 
 		// 2) Crear mapa y posicionar materiales aleatoriamente
 		// generarMapa();
 
 		// 3) crear turnos
+		/*
 		while (gameOver) {
 			System.out.println("Turno de jugador x");
 			sc.nextInt();
 		}
+		*/
+		System.out.print(' ');
+		for(int i = 0; i < 15; i++) {
+	    	  System.out.print('_');
+	    	  System.out.print(' ');
+	    	  if(i == 14) {
+	    		  System.out.println(' ');
+	    	  }
+		}
+		for (int row = 0; row < 15; row++){
+		      System.out.print("|");
+		      for(int i = 0; i < 15; i++) {
+		    	  System.out.print("_");
+		    	  if(i == 14) {
+		    		  System.out.println("|");
+		    	  }else {		    		  
+		    		  System.out.print("|");
+		    	  }
+		      }
+		      
+	    }
+		System.out.print(' ');
+		
 
 	}
 
