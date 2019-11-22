@@ -19,6 +19,11 @@ public class main {
 
 		// 3) crear turnos
 		/*
+		 * - ver a quien le toca
+		 * - ingresar posicion de que unidad mover
+		 * - ingresar posicion de a donde se va a mover
+		 * - ver que accion hacer segun la posicion
+		 * 
 		while (gameOver) {
 			System.out.println("Turno de jugador x");
 			sc.nextInt();
@@ -26,20 +31,20 @@ public class main {
 		*/
 		System.out.print(' ');
 		for(int i = 0; i < 15; i++) {
-	    	  System.out.print('_');
+	    	  System.out.print("___");
 	    	  System.out.print(' ');
 	    	  if(i == 14) {
 	    		  System.out.println(' ');
 	    	  }
 		}
 		for (int row = 0; row < 15; row++){
-		      System.out.print("|");
-		      for(int i = 0; i < 15; i++) {
-		    	  System.out.print("_");
+		      System.out.print("|_");		      
+		      for(int i = 0; i < 15; i++) {		    	 
+		    	  System.out.print("*");
 		    	  if(i == 14) {
-		    		  System.out.println("|");
+		    		  System.out.println("_|");
 		    	  }else {		    		  
-		    		  System.out.print("|");
+		    		  System.out.print("_|_");
 		    	  }
 		      }
 		      
