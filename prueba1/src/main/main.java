@@ -37,9 +37,10 @@ public class main {
 	    		  System.out.println(' ');
 	    	  }
 		}
-		for (int row = 0; row < 15; row++){
-		      System.out.print("|_");		      
-		      for(int i = 0; i < 15; i++) {		    	 
+		for (int row = 0; row < 15; row++){			
+			System.out.print("|_");		      
+		    for(int i = 0; i < 15; i++) {		  
+		    	  // si hay algo imprimir eso y sino dejar vacio
 		    	  System.out.print("*");
 		    	  if(i == 14) {
 		    		  System.out.println("_|");
@@ -49,7 +50,7 @@ public class main {
 		      }
 		      
 	    }
-		System.out.print(' ');
+		//System.out.print(' ');
 		
 
 	}
