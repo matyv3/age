@@ -1,11 +1,12 @@
 package UNIDADES;
+import main.Casillero;
 
 public abstract class Unidad {
 	protected String nombre;
 	protected Integer ataque;
 	protected Integer defensa;
 	protected Integer vida;
-	protected Posicion posicion;
+	protected Casillero posicion;
 	protected Integer coste_madera;
 	protected Integer coste_oro;
 	
@@ -17,12 +18,14 @@ public abstract class Unidad {
 		return nombre;
 	}
 	
-	public Posicion setPosicion(int x, int y) {
-		this.posicion = new Posicion(x,y);
+	public Casillero setPosicion(int x, int y) {
+		this.posicion = new Casillero();
+		this.posicion.setX(x);
+		this.posicion.setY(y);
 		return this.posicion;
 	}
 	
-	public Posicion getPosicion() {
+	public Casillero getPosicion() {
 		return this.posicion;
 	}
 	

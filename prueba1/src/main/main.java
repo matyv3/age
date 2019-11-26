@@ -7,6 +7,9 @@ import Imperios.*;
 public class main {
 
 	private static Boolean gameOver = true;
+	
+	private static Integer ANCHO = 15;
+	private static Integer ALTO = 15;
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -29,28 +32,7 @@ public class main {
 			sc.nextInt();
 		}
 		*/
-		System.out.print(' ');
-		for(int i = 0; i < 15; i++) {
-	    	  System.out.print("___");
-	    	  System.out.print(' ');
-	    	  if(i == 14) {
-	    		  System.out.println(' ');
-	    	  }
-		}
-		for (int row = 0; row < 15; row++){			
-			System.out.print("|_");		      
-		    for(int i = 0; i < 15; i++) {		  
-		    	  // si hay algo imprimir eso y sino dejar vacio
-		    	  System.out.print("*");
-		    	  if(i == 14) {
-		    		  System.out.println("_|");
-		    	  }else {		    		  
-		    		  System.out.print("_|_");
-		    	  }
-		      }
-		      
-	    }
-		//System.out.print(' ');
+		generarMapa();
 		
 
 	}
@@ -100,6 +82,28 @@ public class main {
 	}
 
 	public static void generarMapa() {
-
+		System.out.print(' ');
+		for(int i = 0; i < ANCHO; i++) {
+	    	  System.out.print("___");
+	    	  System.out.print(' ');
+	    	  if(i == 14) {
+	    		  System.out.println(' ');
+	    	  }
+		}
+		for (int row = 0; row < ALTO; row++){			
+			System.out.print("|_");		      
+		    for(int i = 0; i < 15; i++) {		  
+		    	  // si hay algo imprimir eso y sino dejar vacio
+		    	  System.out.print("_");
+		    	  if(i == 14) {
+		    		  System.out.println("_|");
+		    	  }else {		    		  
+		    		  System.out.print("_|_");
+		    	  }
+		      }
+		      
+	    }
 	}
+	
+	
 }
