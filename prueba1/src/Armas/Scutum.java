@@ -9,7 +9,6 @@ public class Scutum implements Arma{
 	public Scutum() {
 		this.ataque = 3;
 		this.defensa = 10;
-		this.imperio = new Romano();
 	}
 	
 	public Integer getAtaque() {
@@ -22,5 +21,9 @@ public class Scutum implements Arma{
 	
 	public Imperio getImperio() {
 		return this.imperio;
+	}
+	
+	public void setImperio(Imperio imperio) {
+		this.imperio = imperio;
 	}
 }

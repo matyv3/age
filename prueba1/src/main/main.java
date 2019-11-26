@@ -10,6 +10,8 @@ public class main {
 	
 	private static Integer ANCHO = 15;
 	private static Integer ALTO = 15;
+	
+	private static List<Casillero> unidades = new ArrayList<Casillero>();
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -32,11 +34,12 @@ public class main {
 			sc.nextInt();
 		}
 		*/
+		
 		generarMapa();
 		
 
 	}
-
+	/*
 	public static List<Jugador> obtenerJugadores() {
 
 		Scanner sc = new Scanner(System.in);
@@ -80,22 +83,27 @@ public class main {
 		return jugadores;
 
 	}
+	*/
 
 	public static void generarMapa() {
 		System.out.print(' ');
-		for(int i = 0; i < ANCHO; i++) {
+		for(int row = 0; row < ANCHO; row++) {
 	    	  System.out.print("___");
 	    	  System.out.print(' ');
-	    	  if(i == 14) {
+	    	  if(row == ANCHO-1) {
 	    		  System.out.println(' ');
 	    	  }
 		}
-		for (int row = 0; row < ALTO; row++){			
+		for (int col = 0; col < ALTO; col++){			
 			System.out.print("|_");		      
-		    for(int i = 0; i < 15; i++) {		  
+		    for(int row = 0; row < ANCHO; row++) {		  
 		    	  // si hay algo imprimir eso y sino dejar vacio
+		    	  
+		    	  
 		    	  System.out.print("_");
-		    	  if(i == 14) {
+		    	  
+		    	  
+		    	  if(row == ANCHO-1) {
 		    		  System.out.println("_|");
 		    	  }else {		    		  
 		    		  System.out.print("_|_");

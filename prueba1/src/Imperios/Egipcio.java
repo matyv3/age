@@ -1,8 +1,9 @@
 package Imperios;
 
+
 public class Egipcio extends Imperio {
 
-    public Egipcio() {
-        super("Egipcio");
+    public Egipcio(Integer numero) {
+    	super("Egipcio", numero);
     }
 }

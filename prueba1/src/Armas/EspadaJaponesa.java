@@ -9,7 +9,6 @@ public class EspadaJaponesa implements Arma{
 	public EspadaJaponesa() {
 		this.ataque = 11;
 		this.defensa = -1;
-		this.imperio = new Japones();
 	}
 	
 	public Integer getAtaque() {
@@ -22,5 +21,9 @@ public class EspadaJaponesa implements Arma{
 	
 	public Imperio getImperio() {
 		return this.imperio;
+	}
+	
+	public void setImperio(Imperio imperio) {
+		this.imperio = imperio;
 	}
 }

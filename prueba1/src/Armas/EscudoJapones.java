@@ -1,6 +1,4 @@
 package Armas;
-
-import Imperios.Japones;
 import Imperios.Imperio;
 
 public class EscudoJapones {
@@ -11,7 +9,6 @@ public class EscudoJapones {
 	public EscudoJapones() {
 		this.ataque = 20;
 		this.defensa = -5;
-		this.imperio = new Japones();
 	}
 	
 	public Integer getAtaque() {
@@ -24,5 +21,9 @@ public class EscudoJapones {
 	
 	public Imperio getImperio() {
 		return this.imperio;
+	}
+	
+	public void setImperio(Imperio imperio) {
+		this.imperio = imperio;
 	}
 }

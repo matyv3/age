@@ -9,7 +9,6 @@ public class Spatha implements Arma{
 	public Spatha() {
 		this.ataque = 9;
 		this.defensa = 4;
-		this.imperio = new Romano();
 	}
 	
 	public Integer getAtaque() {
@@ -22,5 +21,9 @@ public class Spatha implements Arma{
 	
 	public Imperio getImperio() {
 		return this.imperio;
+	}
+	
+	public void setImperio(Imperio imperio) {
+		this.imperio = imperio;
 	}
 }

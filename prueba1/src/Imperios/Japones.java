@@ -2,7 +2,7 @@ package Imperios;
 
 public class Japones extends Imperio {
 
-    public Japones() {
-        super("Japones");
+    public Japones(Integer numero) {
+        super("Japones", numero);
     }
 }
