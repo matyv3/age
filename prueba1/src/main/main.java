@@ -46,13 +46,13 @@ public class main {
 				switch (repuesta)
 				{
 
-					case 1: CrearUnidad();
+					case 1: 
+						CrearUnidad();
+						break;
 
-					case 2: Mover(Imps[turno].getNumero());					
-							
-
-					default: ;
-
+					case 2:
+						Mover(Imps[turno].getNumero());
+						break;
 
 				}
 				
@@ -86,9 +86,9 @@ public class main {
 
 		//Consulta que imperio Gano y lo imprime
 		if(tablerito[2][2].getVida( )<=0){
-				System.out.println("El Imperio " + Imps[1].getNombre() + " Ganó");
+				System.out.println("El Imperio " + Imps[1].getNombre() + " Ganï¿½");
 		}else{
-			System.out.println("El Imperio " + Imps[0].getNombre() + " Ganó");
+			System.out.println("El Imperio " + Imps[0].getNombre() + " Ganï¿½");
 		}
 		
 
@@ -118,6 +118,11 @@ public class main {
 				break;
 			}	
 		}
+		if(numJugador == 0) {			
+			tablerito[2][2] = (Unidad) imp.getBase();
+		}else {
+			tablerito[14][14] = (Unidad) imp.getBase();
+		}
 		return imp;
 	}
 	
@@ -126,47 +131,95 @@ public class main {
 	public static void CrearUnidad()
 	{
 		
-		int repuesta;
+		int unidad;
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("1- Aldeano / 2- Guerrero / 3- Sanador / 4- Caballeriza");
-		repuesta = sc.nextInt();
-			switch(repuesta) 
+		unidad = sc.nextInt();
+		/*
+		int x;
+		int y;
+		System.out.println("Ingrese la fila donde quiere colocar la unidad: ");
+		x = sc.nextInt();
+		System.out.println("Ingrese la columna donde quiere colocar la unidad: ");
+		y = sc.nextInt();
+		*/
+			switch(unidad) 
 			{
 				
 				case 1:
-						try {							
-							tablerito[3][2] = Imps[turno].agregarAldeano(turno);
-							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
-						}catch(MaterialesInsuficientesException e) {
-							System.out.println(e.getMessage());
+						if(turno == 0) {
+							try {							
+								tablerito[3][2] = Imps[turno].agregarAldeano(turno);
+								tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+							}catch(MaterialesInsuficientesException e) {
+								System.out.println(e.getMessage());
+							}	
+						}else {
+							try {							
+								tablerito[13][14] = Imps[turno].agregarAldeano(turno);
+								tablerito[13][14].setNumImperio(Imps[turno].getNumero());
+							}catch(MaterialesInsuficientesException e) {
+								System.out.println(e.getMessage());
+							}
 						}
+						
 					break;
 				case 2:
-						try {							
-							tablerito[3][2] = Imps[turno].agregarGuerrero(turno);
-							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
-						}catch(MaterialesInsuficientesException e) {
-							System.out.println(e.getMessage());
+						if(turno == 0) {
+							try {							
+								tablerito[3][3] = Imps[turno].agregarGuerrero(turno);
+								tablerito[3][3].setNumImperio(Imps[turno].getNumero());
+							}catch(MaterialesInsuficientesException e) {
+								System.out.println(e.getMessage());
+							}
+						}else {
+							try {							
+								tablerito[13][12] = Imps[turno].agregarGuerrero(turno);
+								tablerito[13][12].setNumImperio(Imps[turno].getNumero());
+							}catch(MaterialesInsuficientesException e) {
+								System.out.println(e.getMessage());
+							}	
 						}
+						
 					break;
 				case 3:
+					if(turno == 0) {
 						try {							
-							tablerito[3][2] = Imps[turno].agregarSanador(turno);
-							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+							tablerito[2][3] = Imps[turno].agregarSanador(turno);
+							tablerito[2][3].setNumImperio(Imps[turno].getNumero());
 						}catch(MaterialesInsuficientesException e) {
 							System.out.println(e.getMessage());
 						}
-					break;
-				case 4:
+					}else {
 						try {							
-							tablerito[3][2] = Imps[turno].agregarCaballeriza(turno);
-							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+							tablerito[12][13] = Imps[turno].agregarSanador(turno);
+							tablerito[12][13].setNumImperio(Imps[turno].getNumero());
 						}catch(MaterialesInsuficientesException e) {
 							System.out.println(e.getMessage());
-						}	
+						}
+					}
+						
+					break;
+				case 4:
+						if(turno == 0) {
+							try {							
+								tablerito[3][3] = Imps[turno].agregarCaballeriza(turno);
+								tablerito[3][3].setNumImperio(Imps[turno].getNumero());
+							}catch(MaterialesInsuficientesException e) {
+								System.out.println(e.getMessage());
+							}	
+						}else {
+							try {							
+								tablerito[13][13] = Imps[turno].agregarCaballeriza(turno);
+								tablerito[13][13].setNumImperio(Imps[turno].getNumero());
+							}catch(MaterialesInsuficientesException e) {
+								System.out.println(e.getMessage());
+							}	
+						}
 					break;
 			}
+			
 	}
 	
 	
@@ -207,9 +260,9 @@ public class main {
 	//cambia las acciones de las unidades al final del turno
 	public static void CambiarEstadoAccion(int turno)
 	{
-		for (int i = 0; i < 50; ++i) {
+		for (int i = 0; i < 15; ++i) {
 			
-			for(int z = 0; z<50;z++)
+			for(int z = 0; z < 15;z++)
 			{
 				if(tablerito[i][z]!= null && tablerito[i][z].getTipo() != TipoUnidad.recurso /* && tablerito[i][z].getNumero() == turno */ )
 				{

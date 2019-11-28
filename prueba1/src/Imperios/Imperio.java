@@ -16,7 +16,7 @@ public class Imperio {
 	private List<Unidad> guerreros = new ArrayList<Unidad>();;
 	private List<Unidad> caballos = new ArrayList<Unidad>();;
 	private Unidad sanador;
-	private Unidad base;
+	protected Unidad base;
 	private Integer oro;
 	private Integer madera;
 	private Integer numero;
@@ -24,6 +24,8 @@ public class Imperio {
 
 	public Imperio(String nombre, Integer numero, int turno) {
 		this.nombre = nombre;
+		this.oro = 1000;
+		this.madera = 1000;
 		this.setNumero(numero);
 		try {
 			this.base = new Base();
@@ -158,7 +160,6 @@ public class Imperio {
 	}
 
 	public Unidad getBase() {
-		return base;
+		return this.base;
 	}
-	
 }

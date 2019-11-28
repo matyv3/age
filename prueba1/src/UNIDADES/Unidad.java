@@ -63,6 +63,10 @@ public abstract class Unidad {
 		return this.icono;
 	}
 	
+	public void setIcono(char icono) {
+		this.icono = icono;
+	}
+	
 	public TipoUnidad getTipo() {
 		return this.tipo;
 	}

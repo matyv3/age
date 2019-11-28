@@ -4,5 +4,6 @@ public class Japones extends Imperio {
 
     public Japones(Integer numero, int turno) {
         super("Japones", numero, turno);
+        this.base.setIcono('J');
     }
 }
