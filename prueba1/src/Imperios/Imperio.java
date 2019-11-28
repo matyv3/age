@@ -3,6 +3,7 @@ package Imperios;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Scanner;
 
 import EDIFICIOS.Base;
 import UNIDADES.*;
@@ -23,7 +24,7 @@ public class Imperio {
 
 	public Imperio(String nombre, Integer numero, int turno) {
 		this.nombre = nombre;
-		this.setNumero(turno);
+		this.setNumero(numero);
 		try {
 			this.base = new Base();
 			for (int i = 0; i < 5; i++) {
@@ -159,4 +160,5 @@ public class Imperio {
 	public Unidad getBase() {
 		return base;
 	}
+	
 }

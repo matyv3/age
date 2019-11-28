@@ -31,11 +31,11 @@ public class main {
 		
 		Scanner sc = new Scanner(System.in);
 		int repuesta;		
-		//		Imps[0].Obtener();
-		//		Imps[1].Obtener();				
+		Imps[0] = ObtenerImperio(0);
+		Imps[1] = ObtenerImperio(1);				
 	
 		// Se inicia el Juego
-		while (turno == Imps[turno].getNumero() && gameOver){	
+		while (turno == Imps[turno].getNumero() && gameOver == true){	
 			//se imprimi la matriz
 			Imprimir();
 			
@@ -92,6 +92,33 @@ public class main {
 		}
 		
 
+	}
+	
+	public static Imperio ObtenerImperio(int numJugador) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Seleccione el imperio: ");
+		System.out.println("1 - Egipcio");
+		System.out.println("2 - Japones");
+		System.out.println("3 - Romano");
+		Integer opcion = sc.nextInt();
+		Imperio imp = null;
+		while(imp == null) {
+			switch (opcion) {
+			case 1:
+				imp = new Egipcio(numJugador, numJugador);
+				break;
+			case 2:
+				imp = new Japones(numJugador, numJugador);
+				break;
+			case 3:
+				imp = new Romano(numJugador, numJugador);
+				break;
+			default:
+				System.out.println("Cualquier cosa pusiste");
+				break;
+			}	
+		}
+		return imp;
 	}
 	
 	//Metodo con logica para crear unidades y asignarle imperio y evaluar los recursos
