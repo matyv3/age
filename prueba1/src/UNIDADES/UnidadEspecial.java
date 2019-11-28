@@ -3,7 +3,7 @@ package UNIDADES;
 public class UnidadEspecial extends Unidad{
 	
 	public UnidadEspecial() {
-		super("especial");
+		super("especial", TipoUnidad.unidad);
 	}
 	
 	public void atacar() {

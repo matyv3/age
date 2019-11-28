@@ -1,11 +1,11 @@
 package Imperios;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import EDIFICIOS.Base;
-import UNIDADES.Unidad;
-import UNIDADES.UnidadFactory;
+import UNIDADES.*;
 import exceptions.*;
 
 public class Imperio {
@@ -21,19 +21,19 @@ public class Imperio {
 	private Integer numero;
 	
 
-	public Imperio(String nombre, Integer numero) {
+	public Imperio(String nombre, Integer numero, int turno) {
 		this.nombre = nombre;
-		this.setNumero(numero);
+		this.setNumero(turno);
 		try {
 			this.base = new Base();
 			for (int i = 0; i < 5; i++) {
-				this.agregarAldeano();
-				this.agregarGuerrero();
+				this.agregarAldeano(turno);
+				this.agregarGuerrero(turno);
 				if (i < 3) {
-					this.agregarCaballeriza();
+					this.agregarCaballeriza(turno);
 				}
 			}
-			this.agregarSanador();	
+			this.agregarSanador(turno);	
 		}catch(MaterialesInsuficientesException e) {
 			System.out.println(e.getMessage());
 		}
@@ -60,51 +60,63 @@ public class Imperio {
 		return this.caballos;
 	}
 
-	public void agregarAldeano() throws MaterialesInsuficientesException {
+	public Unidad agregarAldeano(int turno) throws MaterialesInsuficientesException {
 		try {
 			Unidad aldeano = UnidadFactory.crear("aldeano");
 			this.descontar(aldeano);
+			aldeano.setTurno(turno);
 			this.aldeanos.add(aldeano);
+			return aldeano;
 		} catch (UnidadIncorrectaException e) {
 			System.out.println(e.getMessage());
 		} catch (MaterialesInsuficientesException e) {
 			throw e;
-		}
+		} 
+		return new Aldeano();
 	}
 
-	public void agregarGuerrero() throws MaterialesInsuficientesException{
+	public Unidad agregarGuerrero(int turno) throws MaterialesInsuficientesException{
 		try {
 			Unidad guerrero = UnidadFactory.crear("guerrero");
 			this.descontar(guerrero);
 			this.guerreros.add(guerrero);
+			guerrero.setTurno(turno);
+			return guerrero;
 		} catch (UnidadIncorrectaException e) {
 			System.out.println(e.getMessage());
 		} catch (MaterialesInsuficientesException e) {
 			throw e;
 		}
+		return new Guerrero();
 	}
 
-	public void agregarCaballeriza() throws MaterialesInsuficientesException {
+	public Unidad agregarCaballeriza(int turno) throws MaterialesInsuficientesException {
 		try {
 			Unidad caballo = UnidadFactory.crear("caballeriza");
 			this.descontar(caballo);
 			this.caballos.add(caballo);
+			caballo.setTurno(turno);
+			return caballo;
 		} catch (UnidadIncorrectaException e) {
 			System.out.println(e.getMessage());
 		} catch (MaterialesInsuficientesException e) {
 			throw e;
 		}
+		return new Caballeriza();
 	}
 
-	public void agregarSanador() throws MaterialesInsuficientesException {
+	public Unidad agregarSanador(int turno) throws MaterialesInsuficientesException {
 		try {
 			this.sanador = UnidadFactory.crear("sanador");
 			this.descontar(sanador);
+			sanador.setTurno(turno);
+			return this.sanador;
 		} catch (UnidadIncorrectaException e) {
 			System.out.println(e.getMessage());
 		} catch (MaterialesInsuficientesException e) {
 			throw e;
 		}
+		return new Sanador();
 	}
 	
 	private Boolean descontar(Unidad unidad) throws MaterialesInsuficientesException {
@@ -120,11 +132,11 @@ public class Imperio {
 		return true;
 	}
 
-	public Integer getOro() {
+	public int getOro() {
 		return oro;
 	}
 
-	public void setOro(Integer oro) {
+	public void setOro(int oro) {
 		this.oro = oro;
 	}
 
@@ -132,12 +144,12 @@ public class Imperio {
 		return madera;
 	}
 
-	public void setMadera(Integer madera) {
+	public void setMadera(int madera) {
 		this.madera = madera;
 	}
 
 	public Integer getNumero() {
-		return numero;
+		return this.numero;
 	}
 
 	public void setNumero(Integer numero) {

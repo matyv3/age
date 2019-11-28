@@ -3,7 +3,7 @@ package main;
 public class Camino {
 	
 	
-	public  Casillero [] buscarCamino(int xi, int yi, int xf, int yf) {
+	public static Casillero [] buscarCamino(int xi, int yi, int xf, int yf) {
 		int resX = xf - xi;
 		int resY = yf - yi;
 		Casillero [] casilleros;
@@ -118,7 +118,7 @@ public class Camino {
 		return casilleros;
 	}
 
-	private String calculo(int xi, int yi, int xf, int yf) {
+	private static String calculo(int xi, int yi, int xf, int yf) {
 		int resX = xf - xi;
 		int resY = yf - yi;
 		String arrayCamin = "";

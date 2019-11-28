@@ -3,6 +3,8 @@ package main;
 import java.util.*;
 
 import Imperios.*;
+import UNIDADES.*;
+import exceptions.*;
 
 public class main {
 
@@ -11,107 +13,371 @@ public class main {
 	private static Integer ANCHO = 15;
 	private static Integer ALTO = 15;
 	
-	private static List<Casillero> unidades = new ArrayList<Casillero>();
+	// private static List<Casillero> unidades = new ArrayList<Casillero>();
+	private static Unidad tablerito [][] = new Unidad [15][15];
+	private static Imperio Imps [] = new Imperio [2];
+	private static int turno = 0;
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		// 1) dar a elegir a cada personaje los imperios que van a usar
-		// maximo 3 jugadores, uno por cada imperio
-		// List<Jugador> jugadores = obtenerJugadores();
 
-		// 2) Crear mapa y posicionar materiales aleatoriamente
-		// generarMapa();
-
-		// 3) crear turnos
-		/*
-		 * - ver a quien le toca
-		 * - ingresar posicion de que unidad mover
-		 * - ingresar posicion de a donde se va a mover
-		 * - ver que accion hacer segun la posicion
-		 * 
-		while (gameOver) {
-			System.out.println("Turno de jugador x");
-			sc.nextInt();
-		}
-		*/
+		// xI = X inicial de una posicion 
+		// yI = Y inicial de una posicion
 		
-		generarMapa();
+		// xF = X Final de una posicion
+		// yF = Y Final de una posicion
+		
+		// x = X posicion en analisis
+		// y = Y posicion en analisis
+		
+		Scanner sc = new Scanner(System.in);
+		int repuesta;		
+		//		Imps[0].Obtener();
+		//		Imps[1].Obtener();				
+	
+		// Se inicia el Juego
+		while (turno == Imps[turno].getNumero() && gameOver){	
+			//se imprimi la matriz
+			Imprimir();
+			
+			//se dictan el turno y las acciones posibles
+			System.out.println("Turno del imperio: " + Imps[turno].getNombre() + " Acciones:");
+			System.out.println("1- Crear Unidades 2-Mover");
+			repuesta = sc.nextInt();
+				switch (repuesta)
+				{
+
+					case 1: CrearUnidad();
+
+					case 2: Mover(Imps[turno].getNumero());					
+							
+
+					default: ;
+
+
+				}
+				
+			
+			System.out.println("Para continuar precione 1, para finalizar turno 2");
+			repuesta = sc.nextInt();
+
+				if (repuesta == 2)
+				{		
+					if(turno == 0)
+					{
+						CambiarEstadoAccion(turno);
+						turno = Imps[1].getNumero();
+					}
+					if(turno == 1)
+					{
+						CambiarEstadoAccion(turno);
+						turno = Imps[0].getNumero();
+					}
+				}
+				
+		    //Limpia la consola
+			limpiarConsola();
+		
+		    // Consulta si algun Imperio perdio
+			if(tablerito[2][2].getVida( )<=0 || tablerito[14][14].getVida( )<=0)
+			{
+				gameOver = false;
+			}
+		}
+
+		//Consulta que imperio Gano y lo imprime
+		if(tablerito[2][2].getVida( )<=0){
+				System.out.println("El Imperio " + Imps[1].getNombre() + " Ganó");
+		}else{
+			System.out.println("El Imperio " + Imps[0].getNombre() + " Ganó");
+		}
 		
 
 	}
-	/*
-	public static List<Jugador> obtenerJugadores() {
-
+	
+	//Metodo con logica para crear unidades y asignarle imperio y evaluar los recursos
+	//segun el turno que sea crea las unidades en una esquina u otra del mapa
+	public static void CrearUnidad()
+	{
+		
+		int repuesta;
 		Scanner sc = new Scanner(System.in);
-
-		List<Jugador> jugadores = new ArrayList<Jugador>();
-
-		while (jugadores.size() < 3) {
-			System.out.println("Seleccione el imperio: ");
-			System.out.println("1 - Egipcio");
-			System.out.println("2 - Japones");
-			System.out.println("3 - Romano");
-
-			Jugador jugador = new Jugador();
-
-			Integer opcion = sc.nextInt();
-			switch (opcion) {
-			case 1:
-				jugador.setImperio(new Egipcio());
-				jugadores.add(jugador);
-				break;
-			case 2:
-				jugador.setImperio(new Japones());
-				jugadores.add(jugador);
-				break;
-			case 3:
-				jugador.setImperio(new Romano());
-				jugadores.add(jugador);
-				break;
-			// deberia haber un caso 0 que te permita no jugar
-			default:
-				System.out.println("Cualquier cosa pusiste");
-				break;
+		
+		System.out.println("1- Aldeano / 2- Guerrero / 3- Sanador / 4- Caballeriza");
+		repuesta = sc.nextInt();
+			switch(repuesta) 
+			{
+				
+				case 1:
+						try {							
+							tablerito[3][2] = Imps[turno].agregarAldeano(turno);
+							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+						}catch(MaterialesInsuficientesException e) {
+							System.out.println(e.getMessage());
+						}
+					break;
+				case 2:
+						try {							
+							tablerito[3][2] = Imps[turno].agregarGuerrero(turno);
+							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+						}catch(MaterialesInsuficientesException e) {
+							System.out.println(e.getMessage());
+						}
+					break;
+				case 3:
+						try {							
+							tablerito[3][2] = Imps[turno].agregarSanador(turno);
+							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+						}catch(MaterialesInsuficientesException e) {
+							System.out.println(e.getMessage());
+						}
+					break;
+				case 4:
+						try {							
+							tablerito[3][2] = Imps[turno].agregarCaballeriza(turno);
+							tablerito[3][2].setNumImperio(Imps[turno].getNumero());
+						}catch(MaterialesInsuficientesException e) {
+							System.out.println(e.getMessage());
+						}	
+					break;
 			}
-
-			int cantidadJugadores = 1;
-			for (Jugador j : jugadores) {
-				System.out.println("Jugador " + cantidadJugadores + " : " + j.getImperio().getNombre());
-				cantidadJugadores++;
-			}
-		}
-		return jugadores;
-
-	}
-	*/
-
-	public static void generarMapa() {
-		System.out.print(' ');
-		for(int row = 0; row < ANCHO; row++) {
-	    	  System.out.print("___");
-	    	  System.out.print(' ');
-	    	  if(row == ANCHO-1) {
-	    		  System.out.println(' ');
-	    	  }
-		}
-		for (int col = 0; col < ALTO; col++){			
-			System.out.print("|_");		      
-		    for(int row = 0; row < ANCHO; row++) {		  
-		    	  // si hay algo imprimir eso y sino dejar vacio
-		    	  
-		    	  
-		    	  System.out.print("_");
-		    	  
-		    	  
-		    	  if(row == ANCHO-1) {
-		    		  System.out.println("_|");
-		    	  }else {		    		  
-		    		  System.out.print("_|_");
-		    	  }
-		      }
-		      
-	    }
 	}
 	
 	
+	//imprimi Matriz
+	public static void Imprimir(){
+		for (int i = 0; i < 15; i++)
+		{
+			for(int z = 0; z < 15; z++)
+			{
+				if(tablerito[i][z] == null)
+				{
+					System.out.print("|___|");
+				}
+				else
+				{
+						 System.out.print("|_" + tablerito[i][z].getIcono() + "_|");
+					
+				}
+				if(z == 14)
+				{
+					System.out.print(" " + i );
+				}
+			
+			}
+			System.out.println();
+		}
+		
+		for (int c = 0; c < 15; c++)
+		{
+			System.out.print(" " + c );
+		}
+		System.out.println();
+		System.out.println("Imperio: " + Imps[turno].getNombre());
+		System.out.println("Oro: " + Imps[turno].getOro() + "    " + "Madera: " + Imps[turno].getMadera());
+	
+	}
+	
+	//cambia las acciones de las unidades al final del turno
+	public static void CambiarEstadoAccion(int turno)
+	{
+		for (int i = 0; i < 50; ++i) {
+			
+			for(int z = 0; z<50;z++)
+			{
+				if(tablerito[i][z]!= null && tablerito[i][z].getTipo() != TipoUnidad.recurso /* && tablerito[i][z].getNumero() == turno */ )
+				{
+					tablerito[i][z].setAccion(true);
+				}
+			}
+		}
+	}
+	
+
+	//Evalua la acciones del jugador a la hora de mover una unidad, llama a la funcion de movimiento y esta a la de combate para resolver todo
+	public static void Mover(int ImpNumero) {
+		
+		int xI;
+		int yI;
+		int xF;
+		int yF;
+		
+		Scanner sc = new Scanner(System.in);
+
+		//se dan valores de posicion inicial
+		System.out.println("Ingrese las coordenadas de la unidad que desea mover");
+		System.out.print("X inicial = ");
+		xI = sc.nextInt();
+		System.out.println();
+		
+		System.out.print("Y inicial = ");
+		yI = sc.nextInt();
+		System.out.println();
+		
+		//se analiza que la unidad pertenezca al imperio actual
+		if(tablerito[xI][yI].getNumImperio() == ImpNumero)
+		{
+			//se analiza que la unidad no se haya movido en este turno
+			if(tablerito[xI][yI].getAccion() == true)
+			{
+				tablerito[xI][yI].setAccion(false);
+				
+				//se dan valores de posicion Final
+				System.out.println("Ingrese las coordenadas a las que se quiere mover");
+				System.out.print("X Final = ");
+				xF = sc.nextInt();
+				System.out.println();
+				
+				System.out.print("Y Final = ");
+				yF = sc.nextInt();
+				System.out.println();
+				
+				
+				Casillero [] Posiciones =  Camino.buscarCamino(xI, yI, xF, yF);
+			
+				Movimiento(Posiciones,xI, yI, xF, yF, Imps[turno].getNumero());
+			}
+			else
+			{
+				System.out.print("La Unidad ya se Movio este turno");
+			}
+
+		}
+		else
+		{
+			System.out.print("La Seleccion elegida no le Pertenece");
+		}
+		
+	}
+	
+	//Se usa en la funcion Mover
+	public static void Movimiento(Casillero [] posiciones,int xI, int yI,int xF, int yF,int NumImperio)
+	{	
+		
+		
+		for (int i = 0; i< (posiciones.length);i++)
+		{
+			int x = posiciones[i].getX();
+			int y = posiciones[i].getY();
+			
+			if (tablerito[x][y] == null)
+			{
+				
+			}
+			else
+			{
+				//se evalua si es un recurso
+				if(tablerito[x][y].getTipo() == TipoUnidad.recurso)
+				{
+					
+					//se evalua si es un aldeano la seleccion
+					if(tablerito[xI][yI].getNombre().equals("aldeano"))
+					{
+						//se evalua que tipo de recurso es
+						if(tablerito[x][y].getNombre().equals("oro"))
+						{
+							int diferencia = tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque();
+							Imps[NumImperio].setOro(Imps[NumImperio].getOro() + 50);							
+									if (diferencia > 0)
+									{
+										tablerito[x][y].setVida(diferencia);
+										break;
+									}
+									else
+									{
+										tablerito[x][y] = tablerito[xI][yI];
+										tablerito[xI][yI] = null;
+										break;
+									}
+						}
+						else
+						{
+							int diferencia = tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque();
+							Imps[NumImperio].setMadera(Imps[NumImperio].getMadera() + 50);
+							
+									if (diferencia > 0)
+									{
+										tablerito[x][y].setVida(diferencia);
+										break;
+									}
+									else
+									{
+										tablerito[x][y] = tablerito[xI][yI];
+										tablerito[xI][yI] = null;
+										break;
+									}
+							
+						}
+						
+					}
+					else
+					{
+						//Se evalua que si es un recurso y no es un aldeano, se lo deja una posicion antes
+						if (x == xF || y == yF)
+						{
+							x--;
+							y--;
+							tablerito[x][y] = tablerito[xI][yI];
+							tablerito[xI][yI] = null;
+							break;
+							
+						}		
+					}
+					
+					
+				}
+				else
+				{
+					// si no es un recurso se llama a combate
+					combate(x,y,xI,yI);	
+					break;			
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		tablerito[xF][yF] = tablerito[xI][yI];
+		tablerito[xI][yI] = null;
+	}
+	
+	//Se usa en la funcion Movimiento
+	public static void combate(int x, int y, int xI, int yI){
+		int UnidadDefensaVida = tablerito[x][y].getVida();
+		int UnidadAtacaVida = tablerito[xI][yI].getVida();
+		
+		while (UnidadDefensaVida != 0 && UnidadAtacaVida !=0)
+		{
+			
+			tablerito[x][y].setVida(tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque());
+			tablerito[xI][yI].setVida(tablerito[xI][yI].getVida() - tablerito[x][y].getAtaque());
+			
+			 UnidadDefensaVida = tablerito[x][y].getVida();
+			 UnidadAtacaVida = tablerito[xI][yI].getVida();
+			
+		}
+		
+		if(UnidadDefensaVida == 0)
+		{
+			tablerito[x][y] = tablerito[xI][yI];
+			tablerito[xI][yI] = null;
+		}
+		else
+		{
+			tablerito[xI][yI] = null;
+		}
+		
+	}
+	
+	public static void limpiarConsola()
+	{
+		for (int i = 0; i < 50; ++i) {
+			
+			for(int z = 0; z<50;z++)
+			{
+				System.out.println("");
+			}
+		}	
+	}
 }
