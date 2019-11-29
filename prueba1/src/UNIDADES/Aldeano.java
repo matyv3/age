@@ -9,6 +9,7 @@ public class Aldeano extends Unidad {
 		this.vida = 300;
 		this.coste_madera = 10;
 		this.coste_oro = 1;
+		this.icono = 'A';
 	}
 	
 	public void atacar() {

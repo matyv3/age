@@ -9,7 +9,7 @@ public class Sanador extends Unidad {
 		this.vida = 500;
 		this.coste_madera = 0;
 		this.coste_oro = 0; 
-		// TODO: se puede crear uno solo!
+		this.icono = 'S';
 	}
 	
 	public void atacar(){

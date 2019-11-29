@@ -18,6 +18,7 @@ public abstract class Unidad {
 	public Unidad(String nombre, TipoUnidad tipo) {
 		this.nombre = nombre;
 		this.tipo = tipo;
+		this.accion = true;
 	}
 
 	public String getNombre() {

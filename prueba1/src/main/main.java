@@ -67,7 +67,7 @@ public class main {
 						CambiarEstadoAccion(turno);
 						turno = Imps[1].getNumero();
 					}
-					if(turno == 1)
+					else
 					{
 						CambiarEstadoAccion(turno);
 						turno = Imps[0].getNumero();
@@ -78,7 +78,7 @@ public class main {
 			limpiarConsola();
 		
 		    // Consulta si algun Imperio perdio
-			if(tablerito[2][2].getVida( )<=0 || tablerito[14][14].getVida( )<=0)
+			if(tablerito[2][2].getVida() <= 0 || tablerito[14][14].getVida( )<=0)
 			{
 				gameOver = false;
 			}
@@ -249,7 +249,11 @@ public class main {
 		
 		for (int c = 0; c < 15; c++)
 		{
-			System.out.print(" " + c );
+			if(c > 9) {
+				System.out.print("  " + c + " ");
+			}else {				
+				System.out.print("  " + c + "  ");
+			}
 		}
 		System.out.println();
 		System.out.println("Imperio: " + Imps[turno].getNombre());
@@ -292,134 +296,140 @@ public class main {
 		System.out.print("Y inicial = ");
 		yI = sc.nextInt();
 		System.out.println();
-		
-		//se analiza que la unidad pertenezca al imperio actual
-		if(tablerito[xI][yI].getNumImperio() == ImpNumero)
-		{
-			//se analiza que la unidad no se haya movido en este turno
-			if(tablerito[xI][yI].getAccion() == true)
+		if(tablerito[xI][yI] == null) {
+			System.out.println("retrasado no ves que no hay nada ahi");
+		}else {
+			//se analiza que la unidad pertenezca al imperio actual
+			if(tablerito[xI][yI].getNumImperio() == ImpNumero)
 			{
-				tablerito[xI][yI].setAccion(false);
+				//se analiza que la unidad no se haya movido en este turno
+				if(tablerito[xI][yI].getAccion() == true)
+				{
+					tablerito[xI][yI].setAccion(false);
+					
+					//se dan valores de posicion Final
+					System.out.println("Ingrese las coordenadas a las que se quiere mover");
+					System.out.print("X Final = ");
+					xF = sc.nextInt();
+					System.out.println();
+					
+					System.out.print("Y Final = ");
+					yF = sc.nextInt();
+					System.out.println();
+					
+					
+					Casillero [] Posiciones =  Camino.buscarCamino(xI, yI, xF, yF);
 				
-				//se dan valores de posicion Final
-				System.out.println("Ingrese las coordenadas a las que se quiere mover");
-				System.out.print("X Final = ");
-				xF = sc.nextInt();
-				System.out.println();
-				
-				System.out.print("Y Final = ");
-				yF = sc.nextInt();
-				System.out.println();
-				
-				
-				Casillero [] Posiciones =  Camino.buscarCamino(xI, yI, xF, yF);
-			
-				Movimiento(Posiciones,xI, yI, xF, yF, Imps[turno].getNumero());
+					Movimiento(Posiciones,xI, yI, xF, yF, Imps[turno].getNumero());
+				}
+				else
+				{
+					System.out.println("La Unidad ya se Movio este turno");
+				}
+
 			}
 			else
 			{
-				System.out.print("La Unidad ya se Movio este turno");
+				System.out.print("La Seleccion elegida no le Pertenece");
 			}
-
 		}
-		else
-		{
-			System.out.print("La Seleccion elegida no le Pertenece");
-		}
-		
 	}
 	
 	//Se usa en la funcion Mover
 	public static void Movimiento(Casillero [] posiciones,int xI, int yI,int xF, int yF,int NumImperio)
 	{	
 		
-		
+		boolean limpiar = true;
 		for (int i = 0; i< (posiciones.length);i++)
 		{
 			int x = posiciones[i].getX();
 			int y = posiciones[i].getY();
 			
-			if (tablerito[x][y] == null)
-			{
+			if(x == xI && y == yI) {
 				
-			}
-			else
-			{
-				//se evalua si es un recurso
-				if(tablerito[x][y].getTipo() == TipoUnidad.recurso)
+			}else {
+				if (tablerito[x][y] == null)
 				{
-					
-					//se evalua si es un aldeano la seleccion
-					if(tablerito[xI][yI].getNombre().equals("aldeano"))
-					{
-						//se evalua que tipo de recurso es
-						if(tablerito[x][y].getNombre().equals("oro"))
-						{
-							int diferencia = tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque();
-							Imps[NumImperio].setOro(Imps[NumImperio].getOro() + 50);							
-									if (diferencia > 0)
-									{
-										tablerito[x][y].setVida(diferencia);
-										break;
-									}
-									else
-									{
-										tablerito[x][y] = tablerito[xI][yI];
-										tablerito[xI][yI] = null;
-										break;
-									}
-						}
-						else
-						{
-							int diferencia = tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque();
-							Imps[NumImperio].setMadera(Imps[NumImperio].getMadera() + 50);
-							
-									if (diferencia > 0)
-									{
-										tablerito[x][y].setVida(diferencia);
-										break;
-									}
-									else
-									{
-										tablerito[x][y] = tablerito[xI][yI];
-										tablerito[xI][yI] = null;
-										break;
-									}
-							
-						}
-						
-					}
-					else
-					{
-						//Se evalua que si es un recurso y no es un aldeano, se lo deja una posicion antes
-						if (x == xF || y == yF)
-						{
-							x--;
-							y--;
-							tablerito[x][y] = tablerito[xI][yI];
-							tablerito[xI][yI] = null;
-							break;
-							
-						}		
-					}
-					
 					
 				}
 				else
 				{
-					// si no es un recurso se llama a combate
-					combate(x,y,xI,yI);	
-					break;			
+					//se evalua si es un recurso
+					if(tablerito[x][y].getTipo() == TipoUnidad.recurso)
+					{
+						
+						//se evalua si es un aldeano la seleccion
+						if(tablerito[xI][yI].getNombre().equals("aldeano"))
+						{
+							//se evalua que tipo de recurso es
+							if(tablerito[x][y].getNombre().equals("oro"))
+							{
+								int diferencia = tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque();
+								Imps[NumImperio].setOro(Imps[NumImperio].getOro() + 50);							
+										if (diferencia > 0)
+										{
+											tablerito[x][y].setVida(diferencia);
+											break;
+										}
+										else
+										{
+											tablerito[x][y] = tablerito[xI][yI];
+											tablerito[xI][yI] = null;
+											break;
+										}
+							}
+							else
+							{
+								int diferencia = tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque();
+								Imps[NumImperio].setMadera(Imps[NumImperio].getMadera() + 50);
+								
+										if (diferencia > 0)
+										{
+											tablerito[x][y].setVida(diferencia);
+											break;
+										}
+										else
+										{
+											tablerito[x][y] = tablerito[xI][yI];
+											tablerito[xI][yI] = null;
+											break;
+										}
+								
+							}
+							
+						}
+						else
+						{
+							//Se evalua que si es un recurso y no es un aldeano, se lo deja una posicion antes
+							if (x == xF || y == yF)
+							{
+								x--;
+								y--;
+								tablerito[x][y] = tablerito[xI][yI];
+								tablerito[xI][yI] = null;
+								break;
+								
+							}		
+						}
+						
+						
+					}
+					else
+					{
+						// si no es un recurso se llama a combate
+						combate(x,y,xI,yI);
+						limpiar = false;
+						break;			
+						
+					}
 					
 				}
-				
 			}
-			
-			
 		}
-		
-		tablerito[xF][yF] = tablerito[xI][yI];
-		tablerito[xI][yI] = null;
+		if(limpiar) {
+			tablerito[xF][yF] = tablerito[xI][yI];
+			tablerito[xI][yI] = null;			
+		}
 	}
 	
 	//Se usa en la funcion Movimiento
@@ -427,27 +437,38 @@ public class main {
 		int UnidadDefensaVida = tablerito[x][y].getVida();
 		int UnidadAtacaVida = tablerito[xI][yI].getVida();
 		
-		while (UnidadDefensaVida != 0 && UnidadAtacaVida !=0)
-		{
-			
-			tablerito[x][y].setVida(tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque());
+		if(tablerito[x][y].getTipo() == TipoUnidad.unidad) {
+			while (UnidadDefensaVida != 0 && UnidadAtacaVida != 0)
+			{
+				
+				tablerito[x][y].setVida( tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque() );
+				tablerito[xI][yI].setVida(tablerito[xI][yI].getVida() - tablerito[x][y].getAtaque());
+				
+				 UnidadDefensaVida = tablerito[x][y].getVida();
+				 UnidadAtacaVida = tablerito[xI][yI].getVida();
+				
+			}
+			if(UnidadDefensaVida == 0)
+			{
+				tablerito[x][y] = tablerito[xI][yI];
+				tablerito[xI][yI] = null;
+			}
+			else
+			{
+				tablerito[xI][yI] = null;
+			}
+		}else{
+			tablerito[x][y].setVida( tablerito[x][y].getVida() - tablerito[xI][yI].getAtaque() );
 			tablerito[xI][yI].setVida(tablerito[xI][yI].getVida() - tablerito[x][y].getAtaque());
 			
 			 UnidadDefensaVida = tablerito[x][y].getVida();
 			 UnidadAtacaVida = tablerito[xI][yI].getVida();
-			
-		}
-		
-		if(UnidadDefensaVida == 0)
-		{
-			tablerito[x][y] = tablerito[xI][yI];
-			tablerito[xI][yI] = null;
-		}
-		else
-		{
-			tablerito[xI][yI] = null;
-		}
-		
+			 
+			 if(tablerito[x][y].getNombre() != "Base" && UnidadDefensaVida == 0) {
+				tablerito[x][y] = tablerito[xI][yI];
+				tablerito[xI][yI] = null;
+			 }
+		}				
 	}
 	
 	public static void limpiarConsola()

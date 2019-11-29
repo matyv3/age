@@ -9,6 +9,7 @@ public class Caballeriza extends Unidad {
 		this.vida = 700;
 		this.coste_madera = 50;
 		this.coste_oro = 8;
+		this.icono = 'C';
 	}
 	
 	public void atacar() {
